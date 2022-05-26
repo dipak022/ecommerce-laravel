@@ -65,6 +65,16 @@
           @enderror
           </div>
           <div class="form-group">
+            <label for="status" class="col-form-label">Multivendor Status</label>
+            <select name="multi_vendor" class="form-control">
+                <option value="1" {{(($user->status==1) ? 'selected' : '')}}>Active</option>
+                <option value="0" {{(($user->status==0) ? 'selected' : '')}}>Inactive</option>
+            </select>
+          @error('status')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+          </div>
+          <div class="form-group">
             <label for="status" class="col-form-label">Status</label>
             <select name="status" class="form-control">
                 <option value="active" {{(($user->status=='active') ? 'selected' : '')}}>Active</option>

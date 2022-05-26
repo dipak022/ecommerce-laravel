@@ -17,6 +17,26 @@
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
+    {{-- Products --}}
+    @php 
+     $user=DB::table('users')->where('id',auth()->user()->id)->first();
+    @endphp
+    @if($user->multi_vendor==1)
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
+          <i class="fas fa-cubes"></i>
+          <span>Products</span>
+        </a>
+        <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Product Options:</h6>
+            <a class="collapse-item" href="{{route('user-product.index')}}">Products</a>
+            <a class="collapse-item" href="{{route('user-product.create')}}">Add Product</a>
+          </div>
+        </div>
+    </li>
+    @else
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider">

@@ -101,8 +101,10 @@ class UsersController extends Controller
             'role'=>'required|in:admin,user',
             'status'=>'required|in:active,inactive',
             'photo'=>'nullable|string',
+            'multi_vendor'=>'nullable',
+
         ]);
-        // dd($request->all());
+        //dd($request->all());
         $data=$request->all();
         // dd($data);
         

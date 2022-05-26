@@ -3,51 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
-
-use Illuminate\Support\Str;
+use auth;
 use DB;
-class ProductController extends Controller
+use Illuminate\Support\Str;
+class UserProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //$products=Product::getAllProduct();
+        //  $subcategory=DB::table('subcategory')
+        // ->join('category','subcategory.category_id','category.id')
+        // ->select('subcategory.*','category.categoty_name')
+        // ->get();
         // return $products;
+        
+    
         $products=DB::table('products')
         ->join('categories','products.cat_id','categories.id')
         ->join('brands','products.brand_id','brands.id')
         ->select('products.*','categories.title as ca','brands.title as bra')
         ->where('auth_id',auth()->user()->id)->get();
-
-        return view('backend.product.index')->with('products',$products);
+        //dd($products);
+        return view('user.product.index')->with('products',$products);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $brand=Brand::get();
         $category=Category::where('is_parent',1)->get();
         // return $category;
-        return view('backend.product.create')->with('categories',$category)->with('brands',$brand);
+        return view('user.product.create')->with('categories',$category)->with('brands',$brand);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // return $request->all();
@@ -76,6 +67,7 @@ class ProductController extends Controller
         }
         $data['slug']=$slug;
         $data['is_featured']=$request->input('is_featured',0);
+        $data['auth_id']=auth()->user()->id;
         $size=$request->input('size');
         if($size){
             $data['size']=implode(',',$size);
@@ -83,9 +75,10 @@ class ProductController extends Controller
         else{
             $data['size']='';
         }
+       // dd($request->all());
         // return $size;
         // return $data;
-        $data['auth_id']=auth()->user()->id;
+        //$data['auth_id']=auth()->user()->id;
         $status=Product::create($data);
         if($status){
             request()->session()->flash('success','Product Successfully added');
@@ -93,7 +86,7 @@ class ProductController extends Controller
         else{
             request()->session()->flash('error','Please try again!!');
         }
-        return redirect()->route('product.index');
+        return redirect()->route('user-product.index');
 
     }
 
@@ -121,7 +114,7 @@ class ProductController extends Controller
         $category=Category::where('is_parent',1)->get();
         $items=Product::where('id',$id)->get();
         // return $items;
-        return view('backend.product.edit')->with('product',$product)
+        return view('user.product.edit')->with('product',$product)
                     ->with('brands',$brand)
                     ->with('categories',$category)->with('items',$items);
     }
@@ -170,7 +163,7 @@ class ProductController extends Controller
         else{
             request()->session()->flash('error','Please try again!!');
         }
-        return redirect()->route('product.index');
+        return redirect()->route('user-product.index');
     }
 
     /**

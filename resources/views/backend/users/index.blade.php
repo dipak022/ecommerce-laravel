@@ -24,6 +24,7 @@
               <th>Join Date</th>
               <th>Role</th>
               <th>Status</th>
+              <th>Multivendor</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -36,11 +37,13 @@
                 <th>Join Date</th>
                 <th>Role</th>
                 <th>Status</th>
+                <th>Multivendor</th>
                 <th>Action</th>
               </tr>
           </tfoot>
           <tbody>
             @foreach($users as $user)   
+            
                 <tr>
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
@@ -59,6 +62,13 @@
                             <span class="badge badge-success">{{$user->status}}</span>
                         @else
                             <span class="badge badge-warning">{{$user->status}}</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($user->multi_vendor==1)
+                            <span class="badge badge-success">Active</span>
+                        @else
+                            <span class="badge badge-warning">Inactive</span>
                         @endif
                     </td>
                     <td>

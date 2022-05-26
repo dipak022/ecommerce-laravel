@@ -177,6 +177,9 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     // Password Change
     Route::get('change-password', 'HomeController@changePassword')->name('user.change.password.form');
     Route::post('change-password', 'HomeController@changPasswordStore')->name('change.password');
+    //product manage 
+    Route::resource('/user-product','UserProductController');
+    
 
 });
 
