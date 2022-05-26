@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2022 at 08:05 PM
+-- Generation Time: Apr 25, 2022 at 10:59 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -38,13 +38,6 @@ CREATE TABLE `banners` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `banners`
---
-
-INSERT INTO `banners` (`id`, `title`, `slug`, `photo`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(5, 'abc', 'abc', '/storage/photos/1/avatar.png', '<p>xxx</p>', 'active', '2022-05-26 10:30:13', '2022-05-26 10:30:13');
-
 -- --------------------------------------------------------
 
 --
@@ -59,13 +52,6 @@ CREATE TABLE `brands` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `brands`
---
-
-INSERT INTO `brands` (`id`, `title`, `slug`, `status`, `created_at`, `updated_at`) VALUES
-(7, 'abc', 'abc', 'active', '2022-05-26 10:31:56', '2022-05-26 10:31:56');
 
 -- --------------------------------------------------------
 
@@ -399,7 +385,6 @@ INSERT INTO `post_tags` (`id`, `title`, `slug`, `status`, `created_at`, `updated
 
 CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `auth_id` int(11) DEFAULT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `summary` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -418,17 +403,6 @@ CREATE TABLE `products` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`id`, `auth_id`, `title`, `slug`, `summary`, `description`, `photo`, `stock`, `size`, `condition`, `status`, `price`, `discount`, `is_featured`, `cat_id`, `child_cat_id`, `brand_id`, `created_at`, `updated_at`) VALUES
-(11, 2, 'xxxzz', 'xxx', '<p>xxx</p>', '<p>xxxzz</p>', '/storage/photos/2/user2.jpg', 100, 'S,M,L', 'default', 'active', 100.00, 90.00, 1, 1, NULL, 7, '2022-05-26 10:26:58', '2022-05-26 12:01:44'),
-(12, 1, 'yyy', 'yyy', '<p>yyy</p>', '<p>yyy</p>', '/storage/photos/2/user2.jpg', 10, 'S', 'hot', 'active', 200.00, 20.00, 1, 1, NULL, 7, '2022-05-26 10:33:29', '2022-05-26 10:33:29'),
-(13, 1, 'zzz', 'zzz', '<p>zzz</p>', '<p>zzz</p>', '/storage/photos/2/user2.jpg', 300, 'S', 'new', 'active', 300.00, 30.00, 1, 3, NULL, 7, '2022-05-26 10:35:35', '2022-05-26 10:35:35'),
-(14, 2, 'cc', 'cc', '<p>cc</p>', '<p>cc</p>', '/storage/photos/2/user2.jpg', 10, 'S,M', 'hot', 'active', 1000.00, 10.00, 1, 2, NULL, 7, '2022-05-26 11:01:15', '2022-05-26 11:01:15'),
-(15, 1, 'aa', 'aa', '<p>aa</p>', '<p>aa</p>', '/storage/photos/1/avatar.png', 10, 'S', 'default', 'active', 2000.00, 10.00, 1, 2, NULL, 7, '2022-05-26 11:42:42', '2022-05-26 11:42:42');
 
 -- --------------------------------------------------------
 
@@ -509,7 +483,6 @@ CREATE TABLE `users` (
   `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` enum('admin','user') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
-  `multi_vendor` int(11) DEFAULT NULL,
   `provider` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `provider_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
@@ -522,11 +495,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `photo`, `role`, `multi_vendor`, `provider`, `provider_id`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$GOGIJdzJydYJ5nAZ42iZNO3IL1fdvXoSPdUOH3Ajy5hRmi0xBmTzm', '/storage/photos/1/users/user2.jpg', 'admin', NULL, NULL, NULL, 'active', 'OUWWNf8kzGRvrXJJtRXJQLlRvmLtMDwNQ5TZgImqhmYh28vQJAiazxRgEsA0', NULL, '2022-03-19 08:15:30'),
-(2, 'User rajot', 'user@gmail.com', NULL, '$2y$10$10jB2lupSfvAUfocjguzSeN95LkwgZJUM7aQBdb2Op7XzJ.BhNoHq', '/storage/photos/1/users/user2.jpg', 'user', 1, NULL, NULL, 'active', NULL, NULL, '2022-05-26 09:55:29'),
-(30, 'Dipak Debnath', 'seller@gmail.com', NULL, '$2y$10$E5P0EYZx7m8.FnyJ.ZsBnO/4FXJN9eHf9FFOb7v0QJzmTmWungtR6', NULL, 'user', 1, NULL, NULL, 'active', NULL, '2022-04-19 08:24:29', '2022-05-26 08:11:22'),
-(31, 'xxx', 'xxx@gmail.com', NULL, '$2y$10$ajZTXuQpYbBNBkUkv5oDxOKDo3gpRBtaXB0buwATohsalj8tZCuOO', NULL, 'user', 1, NULL, NULL, 'active', NULL, '2022-05-21 08:43:43', '2022-05-26 07:58:11');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `photo`, `role`, `provider`, `provider_id`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$GOGIJdzJydYJ5nAZ42iZNO3IL1fdvXoSPdUOH3Ajy5hRmi0xBmTzm', '/storage/photos/1/users/user2.jpg', 'admin', NULL, NULL, 'active', 'OUWWNf8kzGRvrXJJtRXJQLlRvmLtMDwNQ5TZgImqhmYh28vQJAiazxRgEsA0', NULL, '2022-03-19 08:15:30'),
+(2, 'User rajot', 'user@gmail.com', NULL, '$2y$10$10jB2lupSfvAUfocjguzSeN95LkwgZJUM7aQBdb2Op7XzJ.BhNoHq', '/storage/photos/1/users/user2.jpg', 'admin', NULL, NULL, 'active', NULL, NULL, '2022-04-25 14:24:22'),
+(30, 'Dipak Debnath', 'seller@gmail.com', NULL, '$2y$10$E5P0EYZx7m8.FnyJ.ZsBnO/4FXJN9eHf9FFOb7v0QJzmTmWungtR6', NULL, 'user', NULL, NULL, 'active', NULL, '2022-04-19 08:24:29', '2022-04-19 08:24:29');
 
 -- --------------------------------------------------------
 
@@ -715,13 +687,13 @@ ALTER TABLE `wishlists`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -793,7 +765,7 @@ ALTER TABLE `post_tags`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
@@ -817,7 +789,7 @@ ALTER TABLE `shippings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `wishlists`
